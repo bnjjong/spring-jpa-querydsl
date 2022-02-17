@@ -1,0 +1,30 @@
+application:
+  id: querydsl-tutorials
+  version: 1.0
+
+spring:
+  profiles:
+    active: local
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+
+  jpa:
+    hibernate:
+      ddl-auto: create # ???? ???? ?? application ?? ???
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    open-in-view: false # Open Session in View
+
+logging:
+  level:
+    root: info
+    org.hibernate.SQL: debug # hibernate ???? ?? ??? debug ? ?? ?.
+    org.hibernate.type: trace # parameter log printing ???.
+
+
+server:
+  port: 8080
