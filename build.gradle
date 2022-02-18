@@ -40,6 +40,7 @@ dependencies {
     // Querydsl 추가 끝
 }
 
+// 소스 folder에 생성 한다
 def generated = 'src/main/generated'
 sourceSets {
     main.java.srcDirs += [ generated ]

@@ -39,7 +39,20 @@ public class MemberRepositoryWithQueryDsl {
     QMember qMember = new QMember("m"); // 생성 된 Alias m
     List<Member> members = query.from(qMember)
         .where(qMember.type.eq(type))
-        .orderBy(qMember.name.desc())
+        .orderBy(qMember.name.asc())
+        .stream().toList();
+
+    return members;
+  }
+
+  public List<Member> findByTypeAndGtAge(MemberType type, int age) {
+    JPAQuery<Member> query = new JPAQuery<>(em);
+    QMember qMember = QMember.member;
+
+    List<Member> members = query.from(qMember)
+//        .where(qMember.type.eq(type).and(qMember.age.gt(age)))
+        .where(qMember.type.eq(type), qMember.age.gt(age)) // 위에꺼와 동일 함.
+        .orderBy(qMember.name.asc())
         .stream().toList();
 
     return members;

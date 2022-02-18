@@ -44,15 +44,41 @@ class MemberRepositoryWithQueryDslTest extends RepositoryTest {
   private MemberRepositoryWithQueryDsl memberRepositoryWithQueryDsl;
 
   @Test
-  public void Given_TypeNormal_When_Find_Then_FindMembersWithNormal() throws Exception {
+  public void Given_Type_When_Find_Then_FindMembers() throws Exception {
     // given
     MemberType type = MemberType.NORMAL;
 
     // when
     List<Member> members = memberRepositoryWithQueryDsl.findByType(type);
-    members.forEach(member -> log.info("member : {}", member));
+
 
     // then
+    members.forEach(member -> {
+      log.info("member : {}", member);
+      // type check
+      assertThat(member.getType()).isEqualTo(MemberType.NORMAL);
+    });
+    assertThat(members.size()).isEqualTo(6);
+  }
 
+  @Test
+  @DisplayName("do test")
+  public void Given_TypeAndAge_When_Find_Then_FindMembers() throws Exception {
+    // given
+    MemberType type = MemberType.NORMAL;
+    int age = 20;
+
+    // when
+    List<Member> members = memberRepositoryWithQueryDsl.findByTypeAndGtAge(type, age);
+
+    // then
+    members.forEach(member -> {
+      log.info("member : {}", member);
+      // type check
+      assertThat(member.getType()).isEqualTo(MemberType.NORMAL);
+      assertThat(member.getAge()).isGreaterThan(age);
+
+    });
+    assertThat(members.size()).isEqualTo(3);
   }
 }
