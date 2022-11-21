@@ -15,15 +15,14 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
-    database: mysql
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false # Open Session in View
 
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:mysql://192.168.0.83:33307/audience?autoReconnect=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password:
-    driver-class-name: org.h2.Driver
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:
   level:

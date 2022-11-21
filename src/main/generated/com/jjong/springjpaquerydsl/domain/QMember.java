@@ -28,6 +28,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final MapPath<String, Object, SimplePath<Object>> jsonData = this.<String, Object, SimplePath<Object>>createMap("jsonData", String.class, Object.class, SimplePath.class);
+
     public final StringPath name = createString("name");
 
     public final EnumPath<MemberType> type = createEnum("type", MemberType.class);

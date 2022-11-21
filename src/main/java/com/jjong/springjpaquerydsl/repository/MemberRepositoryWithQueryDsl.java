@@ -11,6 +11,7 @@ package com.jjong.springjpaquerydsl.repository;
 import com.jjong.springjpaquerydsl.domain.Member;
 import com.jjong.springjpaquerydsl.domain.MemberType;
 import com.jjong.springjpaquerydsl.domain.QMember;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -40,6 +41,7 @@ public class MemberRepositoryWithQueryDsl {
     List<Member> members = query.from(qMember)
         .where(qMember.type.eq(type))
         .orderBy(qMember.name.asc())
+        .fetch()
         .stream().toList();
 
     return members;
@@ -53,9 +55,19 @@ public class MemberRepositoryWithQueryDsl {
 //        .where(qMember.type.eq(type).and(qMember.age.gt(age)))
         .where(qMember.type.eq(type), qMember.age.gt(age)) // 위에꺼와 동일 함.
         .orderBy(qMember.name.asc())
+        .fetch()
         .stream().toList();
 
     return members;
+  }
+
+  public List<Member> findByJson(String key, String value) {
+    JPAQuery<Member> query = new JPAQuery<>(em);
+    QMember qMember = QMember.member;
+
+    return query.from(qMember)
+        .where(Expressions.stringTemplate("JSON_EXTRACT(json_data, '$."+key+"')").eq(value))
+        .fetch();
   }
 
 }

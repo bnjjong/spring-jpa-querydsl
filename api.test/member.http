@@ -1,0 +1,17 @@
+POST localhost:8080/member
+Content-Type: application/json
+
+{
+  "type":"NORMAL",
+  "name": "jongsang",
+  "age": 20,
+  "city": "seoul",
+  "street": "gangname",
+  "zipcode": "111-111",
+  "json_data": "{\"name\": \"jongsang\"}"
+}
+
+
+###
+GET localhost:8080/member/name/jongsang
+Content-Type: application/json

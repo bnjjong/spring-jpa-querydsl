@@ -8,6 +8,10 @@
 
 package com.jjong.springjpaquerydsl.domain;
 
+import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import com.vladmihalcea.hibernate.type.json.JsonType;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -21,6 +25,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 /**
  * create on 2022/02/17. create by IntelliJ IDEA.
@@ -38,6 +44,7 @@ import lombok.ToString;
 //@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class Member {
 
   @Id
@@ -62,13 +69,18 @@ public class Member {
   @Embedded
   private Address address;
 
+  @Type(type = "json")
+  @Column(columnDefinition = "json")
+  private Map<String, Object> jsonData = new HashMap<>();
+
 
   public Member(MemberType type, String name, int age,
-      Address address) {
+      Address address, Map<String, Object> jsonData) {
     this.type = type;
     this.name = name;
     this.age = age;
     this.address = address;
+    this.jsonData = jsonData;
   }
 
 //  public static MemberBuilder builder(MemberType type, String name, int age,

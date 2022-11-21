@@ -24,9 +24,6 @@ import org.springframework.test.context.ActiveProfiles;
  */
 @DataJpaTest
 @ActiveProfiles(Profile.TEST)
-//@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {MemberRepository.class}))
-// @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) // 실제 데이터 베이스 테스트 하고 싶을 때
-//@Import(TestConfiguration.class)
 public class RepositoryTest {
 
 }
